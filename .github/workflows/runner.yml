@@ -1,9 +1,7 @@
 name: RSS Telegram Feeder
 
 on:
-  schedule:
-    - cron: '*/30 * * * *'
-  workflow_dispatch:
+  workflow_dispatch:         
 
 jobs:
   build-and-run:
