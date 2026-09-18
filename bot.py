@@ -4,7 +4,7 @@ import asyncio
 import feedparser
 import requests
 from bs4 import BeautifulSoup
-from telegram import Bot
+from telegram import Bot, InlineKeyboardButton, InlineKeyboardMarkup
 
 BOT_TOKEN = os.getenv("BOT_TOKEN")
 CHANNEL_ID = os.getenv("CHANNEL_ID")
@@ -64,19 +64,25 @@ async def main():
                 f"<i>Powered by e5tiaraty.com </i>"
             )
 
+            reply_markup = InlineKeyboardMarkup([
+                [InlineKeyboardButton("اضغط هنا لقراءة المقال", url=link)]
+            ])
+
             try:
                 if image_url:
                     await bot.send_photo(
                         chat_id=CHANNEL_ID,
                         photo=image_url,
                         caption=caption,
-                        parse_mode="HTML"
+                        parse_mode="HTML",
+                        reply_markup=reply_markup
                     )
                 else:
                     await bot.send_message(
                         chat_id=CHANNEL_ID,
                         text=caption,
-                        parse_mode="HTML"
+                        parse_mode="HTML",
+                        reply_markup=reply_markup
                     )
                 print(f"Posted: {title}")
                 new_posted.append(link)
